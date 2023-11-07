@@ -23,6 +23,7 @@ Route::get('/', [AuthController::class,'showLoginForm']);
 Route::get('/login', [AuthController::class,'showLoginForm']);
 Route::get('/register', [AuthController::class,'showAddUserForm']);
 Route::post('login-user', [AuthController::class,'loginUser'])->name('login-user');
+Route::post('register-user', [AuthController::class,'registerUser'])->name('register-user');
 Route::get('/admin-dashboard', [AuthController::class, 'openAdminDashboard'])->middleware('isLoggedIn');
 
 
