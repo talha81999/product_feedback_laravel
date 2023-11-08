@@ -5,7 +5,7 @@ namespace App\Http\Controllers\authentication;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\UserModel;
-use App\Http\Controllers\authentication\Date;
+use Illuminate\Support\Facades\Date;
 
 class AuthController extends Controller
 {
@@ -24,28 +24,25 @@ class AuthController extends Controller
         );
 
         $user = UserModel::where('user_email', '=', $request->email)->first();
+
         if($user)
         {
             if($user->user_password == $request->password)
                 {
-                    if($user->user_type == 0)
+                    if($user->user_role == 1)
                     {
-                        // setSession($user);
+                        setSession($user);
                         // return redirect('admin-dashboard');
                         echo 'admin';
                     }
-                    elseif ($user->user_type == 1) {
-                        # code...
-                    }
-                    elseif ($user->user_type == 2) {
-                        // setSession($user);
+                    elseif ($user->user_role == 2) {
+                        setSession($user);
                         // return redirect('user-dashboard');
                         echo 'user';
                     }
                     else{
-                        return  'This user does not belong to any user role!';
+                        return 'This user does not belong to any user role!';
                     }
-
                 }
                 else{
                     return back()->with('fail', 'Password not matches!');
@@ -77,6 +74,7 @@ class AuthController extends Controller
             ]
         );
 
+
         // generate username
         $randomNumber = random_int(1, 9999);
         $userName = 'user'.$randomNumber;
@@ -88,12 +86,12 @@ class AuthController extends Controller
         $user->user_first_name              =       $request['user_first_name'];
         $user->user_last_name               =       $request['user_last_name'];
         $user->user_email                   =       $request['user_email'];
+        $user->user_password                =       md5($request['user_password']);
         $user->user_phone                   =       $request['user_phone'];
         $user->user_gender                  =       $request['user_gender'];
+        $user->user_role                    =       1;
         $user->user_dob                     =       $request['user_dob'];
         $user->user_address                 =       $request['user_address'];
-        $user->user_created_by              =       session('data')['userId'];
-        $user->user_updated_by              =       session('data')['userId'];
         $user->created_at                   =       Date::now();
         $user->updated_at                   =       Date::now();
 
@@ -108,16 +106,7 @@ class AuthController extends Controller
 
         // save user
         $user->save();
-
-        // update tbl_teams
-        if($user->id)
-        {
-            $teamLeadId = DB::table('tbl_teams')
-            ->where('id', $request['user_team'])
-            ->update(['teamlead_id' => $user->id]);
-        }
-        else{}
-        return redirect('/admin/viewuser')->with('success_message','User added!');
+        return redirect('/login')->with('success_message','Your account has been created successfully!');
     }
 
 

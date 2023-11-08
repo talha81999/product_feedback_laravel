@@ -35,7 +35,7 @@
                             @enderror
                         </span>
                         </div>
-						<div class="input-group mt-3 mb-4">
+						<div class="input-group mt-3 ">
 							<div class="input-group-prepend">
 								<span class="input-group-text"><i class="feather icon-lock"></i></span>
 							</div>
@@ -48,7 +48,7 @@
                                 @enderror
                             </span>
                             </div>
-						<button type="submit" class="btn btn-block btn-primary mb-4">Signin</button>
+						<button type="submit" class="btn btn-block btn-primary mb-4 mt-4">Signin</button>
                     </form>
 						<p class="mb-2 text-muted">Forgot password? <a href="{{url('/verifyemail')}}" class="f-w-400">Reset</a></p>
 						<p class="mb-2 text-muted">Don't have an account? <a href="{{url('/register')}}" class="f-w-400">Signup</a></p>
