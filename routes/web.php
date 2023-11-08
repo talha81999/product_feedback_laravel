@@ -19,11 +19,14 @@ use App\Http\Controllers\user\User;
 |
 */
 
-Route::get('/', [AuthController::class,'showLoginForm']);
-Route::get('/login', [AuthController::class,'showLoginForm']);
+// Route::get('/', [AuthController::class,'showLoginForm']);
+// Route::get('/login', [AuthController::class,'showLoginForm']);
+Route::get('/', [AuthController::class,'showLoginForm'])->middleware('alreadyLoggedIn');
+Route::get('/login', [AuthController::class,'showLoginForm'])->middleware('alreadyLoggedIn');
 Route::get('/register', [AuthController::class,'showAddUserForm']);
 Route::post('login-user', [AuthController::class,'loginUser'])->name('login-user');
 Route::post('register-user', [AuthController::class,'registerUser'])->name('register-user');
+// Route::get('/admin-dashboard', [AuthController::class, 'openAdminDashboard']);
 Route::get('/admin-dashboard', [AuthController::class, 'openAdminDashboard'])->middleware('isLoggedIn');
 
 
@@ -59,7 +62,8 @@ Route::group(['prefix' => '/admin'], function(){
 
 });
 
-Route::get('/user-dashboard', [AuthController::class, 'openUserDashboard'])->middleware('isLoggedIn');
+Route::get('/user-dashboard', [AuthController::class, 'openUserDashboard']);
+// Route::get('/user-dashboard', [AuthController::class, 'openUserDashboard'])->middleware('isLoggedIn');
 Route::group(['prefix' => '/user'], function(){
     Route::get('/viewusertasks', [User::class, 'index']);
     Route::post('/addtaskcomment', [User::class, 'addTaskComments']);

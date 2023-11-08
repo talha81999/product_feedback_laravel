@@ -96,8 +96,8 @@ if(!function_exists('getAllTeams'))
 {
     function getAllTeams()
     {
-        $user = TeamsModel::all();
-        return $user->toArray();
+        // $user = TeamsModel::all();
+        // return $user->toArray();
     }
 }
 

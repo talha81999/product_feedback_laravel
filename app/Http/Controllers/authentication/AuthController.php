@@ -32,13 +32,11 @@ class AuthController extends Controller
                     if($user->user_role == 1)
                     {
                         setSession($user);
-                        // return redirect('admin-dashboard');
-                        echo 'admin';
+                        return redirect('admin-dashboard');
                     }
                     elseif ($user->user_role == 2) {
                         setSession($user);
-                        // return redirect('user-dashboard');
-                        echo 'user';
+                        return redirect('user-dashboard');
                     }
                     else{
                         return 'This user does not belong to any user role!';
@@ -109,5 +107,19 @@ class AuthController extends Controller
         return redirect('/login')->with('success_message','Your account has been created successfully!');
     }
 
+    public function openAdminDashboard()
+    {
+        return view('admin.admin-dashboard');
+    }
+    public function openUserDashboard()
+    {
+        return view('user.user-dashboard');
+    }
+
+    public function logoutUser()
+    {
+        session()->invalidate();
+        return redirect('login');
+    }
 
 }

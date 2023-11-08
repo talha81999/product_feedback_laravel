@@ -20,7 +20,7 @@
                         @endif
                         @csrf
 
-                        <h3 class="project-heading mb-3">IKONIC PRODUCT FEEDBACK APP</h3>
+                        <!-- <h3 class="project-heading mb-3">IKONIC PRODUCT FEEDBACK APP</h3> -->
 						<h4 class="mb-3 f-w-400">Signin</h4>
 						<div class="input-group">
 							<div class="input-group-prepend">

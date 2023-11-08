@@ -27,6 +27,5 @@ class AuthCheck
             $response->header('Cache-Control', 'no-store');
             return $response;
         }
-
     }
 }
